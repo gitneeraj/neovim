@@ -1,0 +1,5 @@
+require('globals')
+require('settings')
+require('keymappings')
+require('plugins')
+require('colorschemes.onedark')
