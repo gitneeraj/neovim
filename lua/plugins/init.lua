@@ -12,39 +12,95 @@ end
 
 local packer = require('packer').startup(function(use)
   -- Packer should manage itself
-    use 'wbthomason/packer.nvim'
+  use 'wbthomason/packer.nvim'
 
-    -- Colorschemes
-    use 'navarasu/onedark.nvim'
+  -- Colorschemes
+  use 'ful1e5/onedark.nvim'
 
-    -- Lualine for status bar
-    use {
-      'nvim-lualine/lualine.nvim',
-      requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+  -- Lualine for status bar
+  use {'nvim-lualine/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons', opt = true}}
+
+  -- File Explorer
+  use {
+    'kyazdani42/nvim-tree.lua',
+    requires = {
+      'kyazdani42/nvim-web-devicons' -- optional, for file icons
     }
+  }
 
-    -- File Explorer
-    use {
-      'kyazdani42/nvim-tree.lua',
-      requires = {
-        'kyazdani42/nvim-web-devicons', -- optional, for file icons
-      },
-    }
+  -- LSP packages
+  use {"williamboman/nvim-lsp-installer", "neovim/nvim-lspconfig"}
+  use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
+  use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
+  use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
+  use 'L3MON4D3/LuaSnip' -- Snippets plugin
+  use 'hrsh7th/cmp-buffer' -- completion for buffer
+  use 'hrsh7th/cmp-path' -- completion for path
+  use 'hrsh7th/cmp-cmdline' -- completion for cmd line
+  use "rafamadriz/friendly-snippets" -- completion snippets
+  use {'onsails/lspkind.nvim'} -- LSP kind for icons in completion menu
 
-    -- LSP packages
-    use { "williamboman/nvim-lsp-installer", "neovim/nvim-lspconfig"}
-    use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
-    use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
-    use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
-    use 'L3MON4D3/LuaSnip' -- Snippets plugin
-    use 'hrsh7th/cmp-buffer' -- completion for buffer
-    use 'hrsh7th/cmp-path' -- completion for path
-    use 'hrsh7th/cmp-cmdline' -- completion for cmd line
-    use "rafamadriz/friendly-snippets" -- completion snippets
-    use { 'onsails/lspkind.nvim' } -- LSP kind for icons in completion menu
+  -- Treesitter for better syntax highlight and more
+  use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 
-    -- Treesitter for better syntax highlight and more
-    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+  -- LspSaga for better UI for hover and others
+  use({
+    "glepnir/lspsaga.nvim",
+    branch = "main",
+    config = function()
+      local saga = require("lspsaga")
+      saga.init_lsp_saga({border_style = "rounded"})
+    end
+  })
+
+  -- LspSignature for signature help while typing
+  use {"ray-x/lsp_signature.nvim"}
+
+  -- Buffer/Tabs with barbar
+  use {'romgrk/barbar.nvim', requires = {'kyazdani42/nvim-web-devicons'}}
+
+  -- auto-indent
+  use {'tpope/vim-sleuth'}
+
+  -- show indentation levels
+  use "lukas-reineke/indent-blankline.nvim"
+
+  -- Gitsigns
+  use {
+    'lewis6991/gitsigns.nvim',
+    config = function()
+      require('gitsigns').setup()
+    end
+  }
+
+  -- Plugin to comment codes
+  use {'numToStr/Comment.nvim', requires = 'JoosepAlviste/nvim-ts-context-commentstring'}
+
+  -- Dashboard
+  use {'glepnir/dashboard-nvim'}
+
+  -- WhichKey for commands help
+  use {"folke/which-key.nvim"}
+
+  -- telescope - searching / navigation
+  use {'nvim-telescope/telescope.nvim', requires = {{'nvim-lua/plenary.nvim'}}}
+
+  -- Autopairs for brackets
+  use 'windwp/nvim-autopairs'
+
+  -- Formatting and linting with null-ls
+  use({"jose-elias-alvarez/null-ls.nvim", requires = {"nvim-lua/plenary.nvim"}})
+
+  -- Git conflict marker
+  use 'rhysd/conflict-marker.vim'
+
+  -- rooter to follow you
+  use {
+    "ahmedkhalf/lsp-rooter.nvim",
+    config = function()
+      require("lsp-rooter").setup {}
+    end
+  }
 
   -- this will automatically install listed dependencies
   -- only the first time NeoVim is opened, because that's when Packer gets installed
@@ -57,6 +113,12 @@ require('plugins.nvim-tree-config')
 require('plugins.lsp-configs')
 require('plugins.nvim-cmp-config')
 require('plugins.treesitter-config')
+require('plugins.barbar-config')
+require('plugins.comment-config')
+require('plugins.indentline-config')
+require('plugins.whichkey-config')
+require('plugins.telescope-config')
+require('plugins.autopairs-config')
+require('plugins.null-ls-config')
 
 return packer
-
