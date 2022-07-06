@@ -66,18 +66,14 @@ local packer = require('packer').startup(function(use)
   use "lukas-reineke/indent-blankline.nvim"
 
   -- Gitsigns
-  use {
-    'lewis6991/gitsigns.nvim',
-    config = function()
-      require('gitsigns').setup()
-    end
-  }
+  use {'lewis6991/gitsigns.nvim'}
 
   -- Plugin to comment codes
   use {'numToStr/Comment.nvim', requires = 'JoosepAlviste/nvim-ts-context-commentstring'}
 
   -- Dashboard
-  use {'glepnir/dashboard-nvim'}
+  -- use {'glepnir/dashboard-nvim'}
+  use {'mhinz/vim-startify'}
 
   -- WhichKey for commands help
   use {"folke/which-key.nvim"}
@@ -120,5 +116,7 @@ require('plugins.whichkey-config')
 require('plugins.telescope-config')
 require('plugins.autopairs-config')
 require('plugins.null-ls-config')
+-- require('plugins.dashboard-config')
+require('plugins.gitsigns-config')
 
 return packer
