@@ -1,6 +1,7 @@
 vim.opt.termguicolors = true
 vim.cmd [[highlight IndentBlanklineContextChar guifg=#5c6370 gui=nocombine]]
 vim.cmd [[highlight IndentBlanklineContextStart guisp=#5c6370 gui=underline]]
+vim.cmd [[highlight IndentBlanklineChar guifg=#3e444c gui=nocombine]]
 
 vim.opt.list = true
 vim.opt.listchars:append("space:⋅")

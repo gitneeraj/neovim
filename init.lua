@@ -1,5 +1,5 @@
 require('globals')
+require('colorschemes.onedark-monsonjeremy')
 require('settings')
 require('keymappings')
-require('colorschemes.onedark-ful1e5')
 require('plugins')

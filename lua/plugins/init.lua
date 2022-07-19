@@ -15,7 +15,9 @@ local packer = require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
   -- Colorschemes
-  use 'ful1e5/onedark.nvim'
+  -- use 'ful1e5/onedark.nvim'
+  -- use 'navarasu/onedark.nvim'
+  use 'monsonjeremy/onedark.nvim'
 
   -- Lualine for status bar
   use {'nvim-lualine/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons', opt = true}}
@@ -42,6 +44,7 @@ local packer = require('packer').startup(function(use)
 
   -- Treesitter for better syntax highlight and more
   use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+  use {'nvim-treesitter/nvim-tree-docs', requires = {'nvim-treesitter/nvim-treesitter'}}
 
   -- LspSaga for better UI for hover and others
   use({
@@ -98,6 +101,19 @@ local packer = require('packer').startup(function(use)
     end
   }
 
+  -- Pretty Fold
+  use {
+    'anuvyklack/pretty-fold.nvim',
+    requires = 'anuvyklack/nvim-keymap-amend', -- only for preview
+    config = function()
+      require('pretty-fold').setup()
+      require('pretty-fold.preview').setup()
+    end
+  }
+
+  -- colorizer hex codes and others
+  use {'norcalli/nvim-colorizer.lua'}
+
   -- this will automatically install listed dependencies
   -- only the first time NeoVim is opened, because that's when Packer gets installed
   if packerBootstrap then require('packer').sync() end
@@ -118,5 +134,6 @@ require('plugins.autopairs-config')
 require('plugins.null-ls-config')
 -- require('plugins.dashboard-config')
 require('plugins.gitsigns-config')
+require('plugins.colorizer-config')
 
 return packer
