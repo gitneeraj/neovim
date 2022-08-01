@@ -3,6 +3,7 @@ vim.cmd [[highlight IndentBlanklineContextChar guifg=#5c6370 gui=nocombine]]
 vim.cmd [[highlight IndentBlanklineContextStart guisp=#5c6370 gui=underline]]
 vim.cmd [[highlight IndentBlanklineChar guifg=#3e444c gui=nocombine]]
 
+vim.api.nvim_command("let g:indentLine_bufNameExclude = ['STARTIFY']")
 vim.opt.list = true
 vim.opt.listchars:append("space:⋅")
 vim.opt.listchars:append("eol:↴")
