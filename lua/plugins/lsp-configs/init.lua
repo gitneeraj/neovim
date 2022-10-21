@@ -4,7 +4,7 @@ local lsp_installer_servers = require 'nvim-lsp-installer.servers'
 local lua_settings = function()
   local opts = {
     Lua = {
-      diagnostics = { globals = { "vim" } },
+      diagnostics = {globals = {"vim"}},
       workspace = {
         library = {
           [vim.fn.expand "$VIMRUNTIME/lua"] = true,
@@ -22,14 +22,14 @@ end
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
   -- LSP signature help
-  require "lsp_signature".on_attach()
+  require"lsp_signature".on_attach()
 
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = { noremap = true, silent = true, buffer = bufnr }
+  local bufopts = {noremap = true, silent = true, buffer = bufnr}
   vim.keymap.set('n', '<leader>gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation, bufopts)
@@ -63,11 +63,11 @@ end
 
 -- config that activates keymaps and enables snippet support
 local function make_config()
-  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol
-    .make_client_capabilities())
+  local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol
+                                                                        .make_client_capabilities())
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   capabilities.textDocument.completion.completionItem.resolveSupport = {
-    properties = { 'documentation', 'detail', 'additionalTextEdits' }
+    properties = {'documentation', 'detail', 'additionalTextEdits'}
   }
   return {
     -- enable snippet support
@@ -109,7 +109,7 @@ lsp_installer.on_server_ready(function(server)
   if server.name == "eslint" then
     opts.on_attach = enableFormat
     opts.settings = {
-      format = { enable = true } -- this will enable formatting
+      format = {enable = true} -- this will enable formatting
     }
   end
 

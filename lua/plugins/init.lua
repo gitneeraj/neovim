@@ -18,6 +18,9 @@ local packer = require('packer').startup(function(use)
   -- use 'ful1e5/onedark.nvim'
   -- use 'navarasu/onedark.nvim'
   use 'monsonjeremy/onedark.nvim'
+  -- use 'folke/tokyonight.nvim'
+  -- use "EdenEast/nightfox.nvim"
+  -- use "ellisonleao/gruvbox.nvim"
 
   -- Lualine for status bar
   use {'nvim-lualine/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons', opt = true}}
