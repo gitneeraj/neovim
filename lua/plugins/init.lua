@@ -21,6 +21,10 @@ local packer = require('packer').startup(function(use)
   -- use 'folke/tokyonight.nvim'
   -- use "EdenEast/nightfox.nvim"
   -- use "ellisonleao/gruvbox.nvim"
+  use "olimorris/onedarkpro.nvim"
+  use 'rmehri01/onenord.nvim'
+  use 'marko-cerovac/material.nvim'
+  use 'projekt0n/github-nvim-theme'
 
   -- Lualine for status bar
   use {'nvim-lualine/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons', opt = true}}
@@ -139,5 +143,6 @@ require('plugins.null-ls-config')
 -- require('plugins.dashboard-config')
 require('plugins.gitsigns-config')
 require('plugins.colorizer-config')
+require('colorschemes.onenord-rmehri01')
 
 return packer
