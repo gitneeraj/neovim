@@ -64,7 +64,7 @@ vim.o.ttimeoutlen = 10 -- ms to wait for a key code seq to complete
 
 -- ================= Misc ================= --
 
-vim.wo.colorcolumn = '80'
+vim.wo.colorcolumn = '120'
 vim.wo.relativenumber = true -- set relative number
 vim.wo.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
 vim.wo.wrap = false -- don't wrap long text into multiple lines
@@ -96,20 +96,14 @@ vim.api.nvim_exec([[
 ]], false)
 
 -- Change current blame color to light grey
-vim.cmd([[
-augroup MyColors
-autocmd!
-autocmd ColorScheme * highlight ConflictMarkerBegin guibg=#2f7366
-autocmd ColorScheme * highlight ConflictMarkerOurs guibg=#2e5049
-autocmd ColorScheme * highlight ConflictMarkerTheirs guibg=#344f69
-autocmd ColorScheme * highlight ConflictMarkerEnd guibg=#2f628e
-autocmd ColorScheme * highlight ConflictMarkerCommonAncestorsHunk guibg=#754a81
-augroup end
-]])
-
 vim.cmd [[highlight ColorColumn guifg=NONE guibg=#2c3139]]
 vim.cmd [[highlight CursorLine guifg=NONE guibg=#2c3139]]
 vim.cmd [[highlight GitSignsCurrentLineBlame guifg=#5c6370]]
+vim.cmd [[highlight ConflictMarkerBegin guibg=#2f7366]]
+vim.cmd [[highlight ConflictMarkerOurs guibg=#2e5049]]
+vim.cmd [[highlight ConflictMarkerTheirs guibg=#344f69]]
+vim.cmd [[highlight ConflictMarkerEnd guibg=#2f628e]]
+vim.cmd [[highlight ConflictMarkerCommonAncestorsHunk guibg=#754a81]]
 
 -- diagnostic symbols
 local signs = {Error = "", Warn = "", Hint = "", Info = ""}

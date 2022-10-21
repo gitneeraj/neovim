@@ -1,21 +1,19 @@
 local lsp_installer = require 'nvim-lsp-installer'
 local lsp_installer_servers = require 'nvim-lsp-installer.servers'
 
-local lua_settings = function ()
+local lua_settings = function()
   local opts = {
     Lua = {
-        diagnostics = {
-          globals = { "vim" },
+      diagnostics = { globals = { "vim" } },
+      workspace = {
+        library = {
+          [vim.fn.expand "$VIMRUNTIME/lua"] = true,
+          [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true
         },
-        workspace = {
-          library = {
-            [vim.fn.expand "$VIMRUNTIME/lua"] = true,
-            [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
-          },
-          maxPreload = 100000,
-          preloadFileSize = 10000,
-        },
-    },
+        maxPreload = 100000,
+        preloadFileSize = 10000
+      }
+    }
   }
   return opts
 end
@@ -23,15 +21,15 @@ end
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-    -- LSP signature help
-    require "lsp_signature".on_attach()
+  -- LSP signature help
+  require "lsp_signature".on_attach()
 
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  local bufopts = { noremap = true, silent = true, buffer = bufnr }
   vim.keymap.set('n', '<leader>gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation, bufopts)
@@ -54,22 +52,22 @@ local on_attach = function(client, bufnr)
 end
 
 local disableFormat = function(client, bufnr)
-  client.resolved_capabilities.document_formatting = false
+  client.server_capabilities.documentFormattingProvider = false
   on_attach(client, bufnr)
 end
 
 local enableFormat = function(client, bufnr)
-  client.resolved_capabilities.document_formatting = true
+  client.server_capabilities.document_formatting = true
   on_attach(client, bufnr)
 end
 
 -- config that activates keymaps and enables snippet support
 local function make_config()
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol
-                                                                       .make_client_capabilities())
+    .make_client_capabilities())
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   capabilities.textDocument.completion.completionItem.resolveSupport = {
-    properties = {'documentation', 'detail', 'additionalTextEdits'}
+    properties = { 'documentation', 'detail', 'additionalTextEdits' }
   }
   return {
     -- enable snippet support
@@ -98,7 +96,7 @@ installServers({
 lsp_installer.on_server_ready(function(server)
   local opts = make_config()
 
-  if server.name == 'sumneko_lua' then 
+  if server.name == 'sumneko_lua' then
     opts.on_attach = disableFormat
     opts.settings = lua_settings()
   end
@@ -111,7 +109,7 @@ lsp_installer.on_server_ready(function(server)
   if server.name == "eslint" then
     opts.on_attach = enableFormat
     opts.settings = {
-      format = {enable = true} -- this will enable formatting
+      format = { enable = true } -- this will enable formatting
     }
   end
 

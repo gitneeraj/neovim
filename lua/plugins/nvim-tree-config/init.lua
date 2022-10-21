@@ -1,5 +1,5 @@
 local nvim_tree_events = require('nvim-tree.events')
-local bufferline_state = require('bufferline.state')
+local bufferline_state = require('bufferline.api')
 local opts = {silent = true, noremap = true}
 
 local function get_tree_size()

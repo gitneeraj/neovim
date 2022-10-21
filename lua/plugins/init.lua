@@ -112,6 +112,9 @@ local packer = require('packer').startup(function(use)
   -- colorizer hex codes and others
   use {'norcalli/nvim-colorizer.lua'}
 
+  -- multi select cursor
+  use {'mg979/vim-visual-multi'}
+
   -- this will automatically install listed dependencies
   -- only the first time NeoVim is opened, because that's when Packer gets installed
   if packerBootstrap then require('packer').sync() end

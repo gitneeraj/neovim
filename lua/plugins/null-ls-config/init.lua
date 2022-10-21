@@ -19,13 +19,30 @@ local sources = {
   }), diagnostics.eslint_d.with({diagnostics_format = "[#{c}] #{m} (#{s})"}), codeActions.eslint_d
 }
 
-null_ls.setup({
-  sources = sources,
-  debug = true,
-  on_attach = function(client)
-    if client.resolved_capabilities.document_formatting then
-      vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()")
-    end
-  end
-})
+local lsp_formatting = function(bufnr)
+  vim.lsp.buf.format({
+    filter = function(client)
+      -- apply whatever logic you want (in this example, we'll only use null-ls)
+      return client.name == "null-ls"
+    end,
+    bufnr = bufnr
+  })
+end
 
+-- if you want to set up formatting on save, you can use this as a callback
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
+local on_attach = function(client, bufnr)
+  if client.supports_method("textDocument/formatting") then
+    vim.api.nvim_clear_autocmds({group = augroup, buffer = bufnr})
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = augroup,
+      buffer = bufnr,
+      callback = function()
+        lsp_formatting(bufnr)
+      end
+    })
+  end
+end
+
+null_ls.setup({sources = sources, debug = true, on_attach = on_attach})
