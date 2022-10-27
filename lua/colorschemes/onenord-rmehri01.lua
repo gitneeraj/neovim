@@ -1,3 +1,5 @@
+local colors = require("onenord.colors").load()
+
 require('onenord').setup({
   theme = "dark", -- "dark" or "light". Alternatively, remove the option and set vim.o.background instead
   borders = true, -- Split window borders
@@ -6,8 +8,8 @@ require('onenord').setup({
   styles = {
     comments = "italic",
     strings = "NONE",
-    keywords = "NONE",
-    functions = "italic",
+    keywords = "italic",
+    functions = "bold",
     variables = "NONE",
     diagnostics = "undercurl"
   },
@@ -18,6 +20,12 @@ require('onenord').setup({
   },
   -- Inverse highlight for different groups
   inverse = {match_paren = false},
-  custom_highlights = {}, -- Overwrite default highlight groups
+  custom_highlights = {
+    LspReferenceText = {style = 'bold', bg = colors.highlight},
+    -- used for highlighting "read" references
+    LspReferenceRead = {style = 'bold', bg = colors.highlight},
+    -- used for highlighting "write" references
+    LspReferenceWrite = {style = 'bold', bg = colors.highlight}
+  }, -- Overwrite default highlight groups
   custom_colors = {} -- Overwrite default colors
 })

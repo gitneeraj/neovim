@@ -16,10 +16,10 @@ local packer = require('packer').startup(function(use)
 
   -- Colorschemes
   -- use 'ful1e5/onedark.nvim'
-  -- use 'navarasu/onedark.nvim'
-  use 'monsonjeremy/onedark.nvim'
+  use 'navarasu/onedark.nvim'
+  -- use 'monsonjeremy/onedark.nvim'
   -- use 'folke/tokyonight.nvim'
-  -- use "EdenEast/nightfox.nvim"
+  use "EdenEast/nightfox.nvim"
   -- use "ellisonleao/gruvbox.nvim"
   use "olimorris/onedarkpro.nvim"
   use 'rmehri01/onenord.nvim'
@@ -27,7 +27,7 @@ local packer = require('packer').startup(function(use)
   use 'projekt0n/github-nvim-theme'
 
   -- Lualine for status bar
-  use {'nvim-lualine/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons', opt = true}}
+  use {'nvim-lualine/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons'}}
 
   -- File Explorer
   use {
@@ -122,6 +122,17 @@ local packer = require('packer').startup(function(use)
   -- multi select cursor
   use {'mg979/vim-visual-multi'}
 
+  -- Add/change/delete surrounding delimiter pairs with ease.
+  use({
+    "kylechui/nvim-surround",
+    tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+    config = function()
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+      })
+    end
+  })
+
   -- this will automatically install listed dependencies
   -- only the first time NeoVim is opened, because that's when Packer gets installed
   if packerBootstrap then require('packer').sync() end
@@ -143,6 +154,9 @@ require('plugins.null-ls-config')
 -- require('plugins.dashboard-config')
 require('plugins.gitsigns-config')
 require('plugins.colorizer-config')
+-- require('colorschemes.onedark-monsonjeremy')
 require('colorschemes.onenord-rmehri01')
+-- require('colorschemes.onedark-navarasu')
+-- require('colorschemes.nightfox-edeneast')
 
 return packer

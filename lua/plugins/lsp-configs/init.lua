@@ -1,6 +1,25 @@
 local lsp_installer = require 'nvim-lsp-installer'
 local lsp_installer_servers = require 'nvim-lsp-installer.servers'
 
+local function lsp_highlight_document(client, bufnr)
+  if client.server_capabilities.documentHighlightProvider then
+    vim.api.nvim_create_augroup("lsp_document_highlight", {clear = true})
+    vim.api.nvim_clear_autocmds {buffer = bufnr, group = "lsp_document_highlight"}
+    vim.api.nvim_create_autocmd("CursorHold", {
+      callback = vim.lsp.buf.document_highlight,
+      buffer = bufnr,
+      group = "lsp_document_highlight",
+      desc = "Document Highlight"
+    })
+    vim.api.nvim_create_autocmd("CursorMoved", {
+      callback = vim.lsp.buf.clear_references,
+      buffer = bufnr,
+      group = "lsp_document_highlight",
+      desc = "Clear All the References"
+    })
+  end
+end
+
 local lua_settings = function()
   local opts = {
     Lua = {
@@ -49,6 +68,8 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<leader>gl', ':Lspsaga show_line_diagnostics<CR>', bufopts)
   vim.keymap.set('n', '<leader>gn', ':Lspsaga diagnostic_jump_next<CR>', bufopts)
   vim.keymap.set('n', '<leader>gp', ':Lspsaga diagnostic_jump_prev<CR>', bufopts)
+
+  lsp_highlight_document(client, bufnr)
 end
 
 local disableFormat = function(client, bufnr)
