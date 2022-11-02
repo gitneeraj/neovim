@@ -133,6 +133,8 @@ local packer = require('packer').startup(function(use)
     end
   })
 
+  use("petertriho/nvim-scrollbar")
+
   -- this will automatically install listed dependencies
   -- only the first time NeoVim is opened, because that's when Packer gets installed
   if packerBootstrap then require('packer').sync() end
@@ -151,6 +153,7 @@ require('plugins.whichkey-config')
 require('plugins.telescope-config')
 require('plugins.autopairs-config')
 require('plugins.null-ls-config')
+require('plugins.scrollbar-config')
 -- require('plugins.dashboard-config')
 require('plugins.gitsigns-config')
 require('plugins.colorizer-config')
