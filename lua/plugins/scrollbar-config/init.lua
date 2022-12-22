@@ -1,11 +1,11 @@
 require("scrollbar").setup({
-  handle = {text = "   "},
+  handle = {text = "  "},
   marks = {
     Search = {text = {"-- ", "== "}},
-    Error = {text = {"-- ", "== "}},
-    Warn = {text = {"-- ", "== "}},
-    Info = {text = {"-- ", "== "}},
-    Hint = {text = {"-- ", "== "}},
+    Error = {text = {" ", " "}},
+    Warn = {text = {" ", " "}},
+    Info = {text = {" ", " "}},
+    Hint = {text = {" ", " "}},
     Misc = {text = {"-- ", "== "}}
   }
 })
